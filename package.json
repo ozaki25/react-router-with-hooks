@@ -2,5 +2,11 @@
   "name": "react-router-with-hooks",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-router-dom": "^4.4.0-beta.6",
+    "use-react-router": "^1.0.3"
+  }
 }
