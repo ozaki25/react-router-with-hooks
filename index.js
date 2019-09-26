@@ -1,26 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import useReactRouter from 'use-react-router';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useParams,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 
 function Hello() {
-  const { history, location, match } = useReactRouter();
+  const history = useHistory();
   return (
     <div>
-      <h1>HelloWorld</h1>
-      <p>{`pathname: ${location.pathname}`}</p>
-      <button onClick={() => history.push('/react')}>Next</button>
+      <h1>Hello</h1>
+      <button
+        onClick={() => history.push('/hello/react-router?message=hooks#test')}
+      >
+        Next
+      </button>
     </div>
   );
 }
 
-function HelloReact() {
-  const { history, location, match } = useReactRouter();
+function HelloSomeone() {
+  const history = useHistory();
+  const location = useLocation();
+  const { name } = useParams();
   return (
     <div>
-      <h1>HelloReact</h1>
-      <p>{`pathname: ${location.pathname}`}</p>
-      <button onClick={() => history.push('/')}>Next</button>
+      <h1>Hello {name} !</h1>
+      <p>pathname: {location.pathname}</p>
+      <p>search: {location.search}</p>
+      <p>hash: {location.hash}</p>
+      <button onClick={() => history.goBack()}>Go Back</button>
     </div>
   );
 }
@@ -29,8 +42,12 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" component={Hello} exact />
-        <Route path="/react" component={HelloReact} exact />
+        <Route path="/" exact>
+          <Hello />
+        </Route>
+        <Route path="/hello/:name" exact>
+          <HelloSomeone />
+        </Route>
       </Switch>
     </Router>
   );
